@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box {
+            width: 960px;
+            height: 1280px;
+            /* background-image: url('./images/IMG_0774.JPG'); */
+            position: relative;
+        }
+        
+        canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+<div class="box">
+    <canvas id="canvas" width="960" height="1280"></canvas>
+    <!-- <div class="imgBox">
+        <img alt="">
+    </div> -->
+</div>
+
+</html>
+<script>
+    var obj01 = {
+        mouth_left_corner: {
+            y: 492,
+            x: 565
+        },
+        mouth_lower_lip_bottom: {
+            y: 539,
+            x: 612
+        },
+        mouth_lower_lip_left_contour1: {
+            y: 510,
+            x: 589
+        },
+        mouth_lower_lip_left_contour2: {
+            y: 511,
+            x: 573
+        },
+        mouth_lower_lip_left_contour3: {
+            y: 526,
+            x: 589
+        },
+        mouth_lower_lip_right_contour1: {
+            y: 539,
+            x: 659
+        },
+        mouth_lower_lip_right_contour2: {
+            y: 553,
+            x: 672
+        },
+        mouth_lower_lip_right_contour3: {
+            y: 549,
+            x: 642
+        },
+        mouth_lower_lip_top: {
+            y: 525,
+            x: 619
+        },
+        mouth_right_corner: {
+            y: 552,
+            x: 703
+        },
+        mouth_upper_lip_bottom: {
+            y: 510,
+            x: 629
+        },
+        mouth_upper_lip_left_contour1: {
+            y: 490,
+            x: 619
+        },
+        mouth_upper_lip_left_contour2: {
+            y: 487,
+            x: 590
+        },
+        mouth_upper_lip_left_contour3: {
+            y: 497,
+            x: 597
+        },
+        mouth_upper_lip_right_contour1: {
+            y: 504,
+            x: 651
+        },
+        mouth_upper_lip_right_contour2: {
+            y: 525,
+            x: 679
+        },
+        mouth_upper_lip_right_contour3: {
+            y: 527,
+            x: 666
+        },
+        mouth_upper_lip_top: {
+            y: 499,
+            x: 633
+        }
+    }
+    var obj02 = {
+        mouth_left_corner: {
+            y: 829,
+            x: 417
+        },
+        mouth_lower_lip_bottom: {
+            y: 870,
+            x: 504
+        },
+        mouth_lower_lip_left_contour1: {
+            y: 834,
+            x: 461
+        },
+        mouth_lower_lip_left_contour2: {
+            y: 849,
+            x: 441
+        },
+        mouth_lower_lip_left_contour3: {
+            y: 865,
+            x: 469
+        },
+        mouth_lower_lip_right_contour1: {
+            y: 831,
+            x: 544
+        },
+        mouth_lower_lip_right_contour2: {
+            y: 845,
+            x: 566
+        },
+        mouth_lower_lip_right_contour3: {
+            y: 862,
+            x: 539
+        },
+        mouth_lower_lip_top: {
+            y: 836,
+            x: 503
+        },
+        mouth_right_corner: {
+            y: 822,
+            x: 588
+        },
+        mouth_upper_lip_bottom: {
+            y: 835,
+            x: 502
+        },
+        mouth_upper_lip_left_contour1: {
+            y: 810,
+            x: 479
+        },
+        mouth_upper_lip_left_contour2: {
+            y: 819,
+            x: 448
+        },
+        mouth_upper_lip_left_contour3: {
+            y: 833,
+            x: 461
+        },
+        mouth_upper_lip_right_contour1: {
+            y: 808,
+            x: 522
+        },
+        mouth_upper_lip_right_contour2: {
+            y: 815,
+            x: 555
+        },
+        mouth_upper_lip_right_contour3: {
+            y: 830,
+            x: 544
+        },
+        mouth_upper_lip_top: {
+            y: 815,
+            x: 501
+        },
+    }
+    var canvas = document.getElementById('canvas');
+    canvas.width = 960;
+    canvas.height = 1280;
+    var c = canvas.getContext('2d');
+    var img = new Image();
+    img.src = './images/IMG_0774.JPG';
+    img.onload = function() {
+        c.drawImage(img, 0, 0, 960, 1280, 0, 0, 960, 1280);
+        drawLip(obj01, 'red', c);
+    };
+    // c.scale();
+    // c.translate(1280, 0);
+    // c.rotate(Math.PI * 0.25);
+
+    // c.rotate(-Math.PI * 0.5);
+    // c.translate(-1280, 0);
+
+    function drawLip(landmarks, color, context) {
+        var color = color;
+        // context.clearRect(landmarks.mouth_left_corner.x,landmarks.mouth_upper_lip_left_contour1.y,200,100);
+        context.beginPath();
+        //上嘴唇曲线
+        context.moveTo(landmarks.mouth_left_corner.x, landmarks.mouth_left_corner.y);
+        context.quadraticCurveTo(landmarks.mouth_upper_lip_left_contour2.x + 5, landmarks.mouth_upper_lip_left_contour2.y - 5, landmarks.mouth_upper_lip_left_contour1.x, landmarks.mouth_upper_lip_left_contour1.y);
+        context.quadraticCurveTo(landmarks.mouth_upper_lip_top.x, landmarks.mouth_upper_lip_top.y + 5, landmarks.mouth_upper_lip_right_contour1.x, landmarks.mouth_upper_lip_right_contour1.y);
+        context.quadraticCurveTo(landmarks.mouth_upper_lip_right_contour2.x, landmarks.mouth_upper_lip_right_contour2.y - 5, landmarks.mouth_right_corner.x, landmarks.mouth_right_corner.y);
+        context.quadraticCurveTo(landmarks.mouth_upper_lip_right_contour3.x, landmarks.mouth_upper_lip_right_contour3.y + 5, landmarks.mouth_upper_lip_bottom.x, landmarks.mouth_upper_lip_bottom.y);
+        context.quadraticCurveTo(landmarks.mouth_upper_lip_left_contour3.x - 5, landmarks.mouth_upper_lip_left_contour3.y + 5, landmarks.mouth_left_corner.x, landmarks.mouth_left_corner.y);
+        // 上嘴唇直线
+        // context.lineTo(landmarks.mouth_upper_lip_left_contour2.x,landmarks.mouth_upper_lip_left_contour2.y);
+        // context.lineTo(landmarks.mouth_upper_lip_left_contour1.x,landmarks.mouth_upper_lip_left_contour1.y);
+        // context.lineTo(landmarks.mouth_upper_lip_top.x,landmarks.mouth_upper_lip_top.y);
+        // context.lineTo(landmarks.mouth_upper_lip_right_contour1.x,landmarks.mouth_upper_lip_right_contour1.y);
+        // context.lineTo(landmarks.mouth_upper_lip_right_contour2.x,landmarks.mouth_upper_lip_right_contour2.y);
+        // context.lineTo(landmarks.mouth_right_corner.x,landmarks.mouth_right_corner.y);
+        // context.lineTo(landmarks.mouth_upper_lip_right_contour3.x,landmarks.mouth_upper_lip_right_contour3.y);
+        // context.lineTo(landmarks.mouth_upper_lip_bottom.x,landmarks.mouth_upper_lip_bottom.y+5);
+        // context.lineTo(landmarks.mouth_upper_lip_left_contour3.x,landmarks.mouth_upper_lip_left_contour3.y);
+        // context.lineTo(landmarks.mouth_left_corner.x,landmarks.mouth_left_corner.y);        
+        //下嘴唇曲线 
+        context.moveTo(landmarks.mouth_left_corner.x, landmarks.mouth_left_corner.y);
+        context.lineTo(landmarks.mouth_lower_lip_left_contour2.x, landmarks.mouth_lower_lip_left_contour2.y);
+        context.quadraticCurveTo(landmarks.mouth_lower_lip_left_contour3.x, landmarks.mouth_lower_lip_left_contour3.y, landmarks.mouth_lower_lip_bottom.x, landmarks.mouth_lower_lip_bottom.y);
+        context.quadraticCurveTo(landmarks.mouth_lower_lip_right_contour2.x - 5, landmarks.mouth_lower_lip_right_contour2.y + 10, landmarks.mouth_right_corner.x, landmarks.mouth_right_corner.y);
+        // context.bezierCurveTo(landmarks.mouth_lower_lip_left_contour3.x-5,landmarks.mouth_lower_lip_left_contour3.y,landmarks.mouth_lower_lip_right_contour3.x+5,landmarks.mouth_lower_lip_right_contour3.y,landmarks.mouth_right_corner.x,landmarks.mouth_right_corner.y);
+        context.quadraticCurveTo(landmarks.mouth_lower_lip_top.x, landmarks.mouth_lower_lip_top.y, landmarks.mouth_left_corner.x, landmarks.mouth_left_corner.y);
+        //下嘴唇直线
+        // context.moveTo(landmarks.mouth_left_corner.x,landmarks.mouth_left_corner.y);
+        // context.lineTo(landmarks.mouth_lower_lip_left_contour2.x,landmarks.mouth_lower_lip_left_contour2.y);
+        // context.lineTo(landmarks.mouth_lower_lip_left_contour3.x,landmarks.mouth_lower_lip_left_contour3.y);
+        // context.lineTo(landmarks.mouth_lower_lip_bottom.x,landmarks.mouth_lower_lip_bottom.y);
+        // context.lineTo(landmarks.mouth_lower_lip_right_contour3.x,landmarks.mouth_lower_lip_right_contour3.y);
+        // context.lineTo(landmarks.mouth_lower_lip_right_contour2.x,landmarks.mouth_lower_lip_right_contour2.y);
+        // context.lineTo(landmarks.mouth_right_corner.x,landmarks.mouth_right_corner.y);
+        // context.lineTo(landmarks.mouth_lower_lip_right_contour1.x,landmarks.mouth_lower_lip_right_contour1.y);
+        // context.lineTo(landmarks.mouth_lower_lip_top.x,landmarks.mouth_lower_lip_top.y);
+        // context.lineTo(landmarks.mouth_lower_lip_left_contour1.x,landmarks.mouth_lower_lip_left_contour1.y);
+        // context.lineTo(landmarks.mouth_left_corner.x,landmarks.mouth_left_corner.y);
+        context.closePath();
+        context.fillStyle = color;
+        context.fill();
+
+    }
+</script>
